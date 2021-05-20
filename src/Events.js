@@ -1,17 +1,6 @@
 import "./App.css";
 import { eventData } from "./data";
 
-
-
-const HomePageHeader = () => {
-    return (
-      <header className="header">
-        <h2>Eventi del campo</h2>
-      </header>
-    );
-  };
-
-
 export const Events = () => {
     return (
         <>
@@ -20,7 +9,10 @@ export const Events = () => {
                 {eventData.map((data, key) => {
                     return (
                         <div key={key}>
-                            <Event key={key} dispositivo={data.dispositivo} IMEI={data.IMEI} evento={data.evento} timestamp={data.timestamp}/>
+                            <Event key={key}
+                            dispositivo={data.dispositivo}
+                            IMEI={data.IMEI} evento={data.evento}
+                            timestamp={data.timestamp}/>
                         </div>
                     );
                 })}
@@ -29,6 +21,16 @@ export const Events = () => {
     );
 };
 
+//my header
+const HomePageHeader = () => {
+    return (
+      <header className="header">
+        <h2>Eventi del campo</h2>
+      </header>
+    );
+  };
+
+//single event passing data with props
 const Event = ({ dispositivo, IMEI, evento, timestamp }) => {
     if(!dispositivo) return <div />
     return (
