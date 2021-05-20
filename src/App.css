@@ -1,6 +1,11 @@
 .App {
   text-align: center;
 }
+.events-container {
+  padding-left: 3em;
+  padding-right: 3em;
+  margin-top: 3em;
+}
 
 .App-logo {
   height: 40vmin;
