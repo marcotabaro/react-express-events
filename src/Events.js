@@ -1,17 +1,54 @@
 import "./App.css";
 import { eventData } from "./data";
 
+
+
+const HomePageHeader = () => {
+    return (
+      <header className="header">
+        <h2>Eventi del campo</h2>
+      </header>
+    );
+  };
+
+
 export const Events = () => {
     return (
-        <div className='events-container'>
-            <h1>Eventi dal campo</h1>
-            {eventData.map((data, key) => {
-                return (
-                    <div key={key}>
-                        {`${data.dispositivo} | ${data.IMEI} | ${data.evento} | ${data.timestamp}`}
-                    </div>
-                );
-            })}
-        </div>
-    )
-}
+        <>
+            <HomePageHeader />
+            <div className='events-container'>
+                {eventData.map((data, key) => {
+                    return (
+                        <div key={key}>
+                            <Event key={key} dispositivo={data.dispositivo} IMEI={data.IMEI} evento={data.evento} timestamp={data.timestamp}/>
+                        </div>
+                    );
+                })}
+            </div>
+        </>
+    );
+};
+
+const Event = ({ dispositivo, IMEI, evento, timestamp }) => {
+    if(!dispositivo) return <div />
+    return (
+        <table>
+      <tbody>
+        <tr>
+          <td>
+            <h5>{dispositivo}</h5>
+          </td>
+          <td>
+            <h5>{IMEI}</h5>
+          </td>
+          <td>
+            <h4>{evento}</h4>
+          </td>
+          <td>
+            <p>{timestamp}</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    );
+};
