@@ -8,7 +8,7 @@ export const Events = () => {
             {eventData.map((data, key) => {
                 return (
                     <div key={key}>
-                        {`${data.company}, ${data.ticket}, ${data.stockPrice}, ${data.timeElapsed}`}
+                        {`${data.dispositivo} | ${data.IMEI} | ${data.evento} | ${data.timestamp}`}
                     </div>
                 );
             })}
