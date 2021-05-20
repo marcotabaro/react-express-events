@@ -1,4 +1,4 @@
-export const stockData = [
+export const eventData = [
     {
       company: "Twitter Inc",
       ticker: "TWTR",
