@@ -14,17 +14,17 @@ app.get('/backend', (req, res) => {
 });
 
 
-app.post('/backend', (request, response) => {
-    // app.on('end', (err, res) => {
-    //     if (err) throw err;
-        let body = response.data;
-    //});
-    // fetch('./data.json')
-    // .then(res => res.json())
-    // .then(data => {
+app.post('/backend', (req, res) => {
+    const body = req.data;
+    res.send('event received from Postman');
     console.log(body);
+    //fetch('./data.json')
+    //.then(res => res.json())
+    //.then(data => {
   //});
     // let rawData = fs.readFileSync('data.json');
     // let eventArray = JSON.parse(rawData);
     // eventArray[]
 });
+
+fs.writeFile('data.json', JSON.stringify(this.body));
