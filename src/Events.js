@@ -1,5 +1,5 @@
 import "./App.css";
-import { eventData } from "./data";
+let eventData =require("./data.json");
 
 export const Events = () => {
     return (
