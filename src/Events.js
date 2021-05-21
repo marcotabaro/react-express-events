@@ -11,7 +11,8 @@ export const Events = () => {
                         <div key={key}>
                             <Event key={key}
                             dispositivo={data.dispositivo}
-                            IMEI={data.IMEI} evento={data.evento}
+                            IMEI={data.IMEI} 
+                            evento={data.evento}
                             timestamp={data.timestamp}/>
                         </div>
                     );
