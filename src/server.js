@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 5000;
@@ -7,24 +8,23 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 
-app.listen(port, () => console.log(`Server listening on ${port}`));
 
-app.get('/backend', (req, res) => {
-    res.send({ express: "Testing if backend is connected to React"});
+app.get('/backend', (request, response) => {
+  response.send({ express: "Testing connection front-back"});
 });
 
 
 app.post('/backend', (req, res) => {
-    const body = req.data;
-    res.send('event received from Postman');
-    console.log(body);
-    //fetch('./data.json')
-    //.then(res => res.json())
-    //.then(data => {
-  //});
-    // let rawData = fs.readFileSync('data.json');
-    // let eventArray = JSON.parse(rawData);
-    // eventArray[]
+  fs.readFile('data.json', function (err, data) {
+    let json = JSON.parse(data);
+    json.push(req.body);
+    fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
+  })
+  // fs.writeFile(path.resolve(__dirname, 'data.json'), JSON.stringify(req.body));
+  // res.send(newEvent `added`);
+  // console.log(newEvent);
 });
 
-fs.writeFile('data.json', JSON.stringify(this.body));
+app.listen(port, () => console.log(`Server listening on ${port}`));
+
+
