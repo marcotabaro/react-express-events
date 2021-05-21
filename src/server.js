@@ -19,10 +19,8 @@ app.post('/backend', (req, res) => {
     let json = JSON.parse(data);
     json.push(req.body);
     fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
-  })
-  // fs.writeFile(path.resolve(__dirname, 'data.json'), JSON.stringify(req.body));
-  // res.send(newEvent `added`);
-  // console.log(newEvent);
+    res.end();
+  });
 });
 
 app.listen(port, () => console.log(`Server listening on ${port}`));
