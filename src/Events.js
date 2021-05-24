@@ -2,7 +2,7 @@ import "./App.css";
 let eventData = require("./data.json");
 
 export const Events = () => {
-    if(eventData.length === 0) return <h1>Nessun evento</h1>
+    //if(eventData.length === 0) return <h1>Nessun evento</h1>
     return (
         <>
           <HomePageHeader />
@@ -43,7 +43,7 @@ const TableHeader = () => {
           <th></th>
           <th>Assegnatario</th>
           <th>Nome dispositivo</th>
-          <th>EventLog</th>
+          <th>IMEI</th>
           <th>Data</th>
         </tr>
       </thead>
@@ -57,7 +57,10 @@ const TableBody = ({ dispositivo, IMEI, evento, timestamp }) => {
     return (
           <tr>
             <td>
-              <input type="checkbox"></input>
+              <input type="checkbox" className="checkbox"></input>
+            </td>
+            <td>
+              
             </td>
             <td>
               <h5>{dispositivo}</h5>

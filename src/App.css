@@ -18,8 +18,20 @@
   pointer-events: none;
 }
 
+table {
+  margin: 0 auto;
+  padding: 20px 0px;
+}
+
+thead {
+  margin-top: 20px;
+}
 
 td {
   border: 1px solid gray;
-  width: 30em;
+  width: 20em;
+}
+
+.checkbox {
+  width: 5em;
 }
