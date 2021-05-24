@@ -19,11 +19,16 @@ app.post('/backend', (req, res) => {
     if (err) throw err;
     //Da aggiungere il caso in cui il file è vuoto
     let json = JSON.parse(data);
+    json.push(req.body);
+
+    //Date conversion
     let index = (json.length-1);
     console.log(`json.length: ` + index);
     let myDate = new Date(json[index].timestamp);
-    console.log(`Data convertita: ` + myDate);
-    json.push(req.body);
+    json[index].timestamp = myDate;
+    console.log(`var MyDate: ` + myDate);
+    console.log(`timestamp json: ` + json[index].timestamp);
+    console.log(`JSON: ` + json);
     fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
     res.end();
   });
