@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 let eventData = require("./data.json");
 
@@ -29,7 +30,9 @@ export const Events = () => {
 const HomePageHeader = () => {
     return (
       <header className="header">
-        <h2>Eventi del campo</h2>
+        <h2>Eventi dal campo</h2>
+        <button>Segna come già letto</button>
+        <button>Assegna responsabile</button>
       </header>
     );
   };
@@ -41,9 +44,10 @@ const TableHeader = () => {
       <thead>
         <tr>
           <th></th>
-          <th>Assegnatario</th>
+          <th>Proprietario</th>
           <th>Nome dispositivo</th>
           <th>IMEI</th>
+          <th>Evento</th>
           <th>Data</th>
         </tr>
       </thead>
@@ -52,28 +56,30 @@ const TableHeader = () => {
 };
 
 //single event passing data with props to my tbody
-const TableBody = ({ dispositivo, IMEI, evento, timestamp }) => {
-    if(!dispositivo) return <h1>Nessun evento da visualizzare</h1>
-    return (
-          <tr>
-            <td>
-              <input type="checkbox" className="checkbox"></input>
-            </td>
-            <td>
-              
-            </td>
-            <td>
-              <h5>{dispositivo}</h5>
-            </td>
-            <td>
-              <h5>{IMEI}</h5>
-            </td>
-            <td>
-              <h5>{evento}</h5>
-            </td>
-            <td>
-              <p>{timestamp}</p>
-            </td>
-          </tr>
-    );
+class TableBody extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render () {
+    return <tr>
+    <td>
+      <input type="checkbox" className="checkbox"></input>
+    </td>
+    <td>
+    {/* Owner creato dinamicamente */} "Questo sara' l'owner"
+    </td>
+    <td>
+      <h5>{this.props.dispositivo}</h5>
+    </td>
+    <td>
+      <h5>{this.props.IMEI}</h5>
+    </td>
+    <td>
+      <h5>{this.props.evento}</h5>
+    </td>
+    <td>
+      <p>{this.props.timestamp}</p>
+    </td>
+  </tr>
+  };
 };
