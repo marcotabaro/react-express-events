@@ -15,7 +15,13 @@ app.get('/backend', (request, response) => {
 
 
 app.post('/backend', (req, res) => {
-  fs.readFile('data.json', function (err, data) {
+  fs.readFile('data.json',function (err, data) {
+    if (err) throw err;
+    console.log(data);
+    if (data === undefined) {
+      console.log('Nessun dato da mostrare');
+      res.end();
+    }
     let json = JSON.parse(data);
     json.push(req.body);
     fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));

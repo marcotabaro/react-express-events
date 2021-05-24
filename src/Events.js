@@ -2,6 +2,7 @@ import "./App.css";
 let eventData = require("./data.json");
 
 export const Events = () => {
+    if(eventData.length === 0) return <h1>Nessun evento</h1>
     return (
         <>
             <HomePageHeader />
@@ -33,7 +34,7 @@ const HomePageHeader = () => {
 
 //single event passing data with props
 const Event = ({ dispositivo, IMEI, evento, timestamp }) => {
-    if(!dispositivo) return <div />
+    if(!dispositivo) return <h1>Nessun evento da visualizzare</h1>
     return (
         <table>
       <tbody>
@@ -45,7 +46,7 @@ const Event = ({ dispositivo, IMEI, evento, timestamp }) => {
             <h5>{IMEI}</h5>
           </td>
           <td>
-            <h4>{evento}</h4>
+            <h5>{evento}</h5>
           </td>
           <td>
             <p>{timestamp}</p>
