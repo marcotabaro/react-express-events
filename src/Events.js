@@ -7,7 +7,6 @@ export const Events = () => {
     return (
         <>
           <HomePageHeader />
-
               <table>
                 <TableHeader />
                   <tbody>
@@ -17,7 +16,7 @@ export const Events = () => {
                           dispositivo={data.dispositivo}
                           IMEI={data.IMEI} 
                           evento={data.evento}
-                          timestamp={data.timestamp}/>
+                          timestamp= {data.timestamp}/>
                           );
                     })};
                 </tbody>
