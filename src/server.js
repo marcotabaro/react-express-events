@@ -10,18 +10,14 @@ app.use(express.json());
 
 
 app.get('/backend', (request, response) => {
-  response.send({ express: "Testing connection front-back"});
+  response.send(console.log(`Connection established`));
 });
 
 
 app.post('/backend', (req, res) => {
-  fs.readFile('data.json',function (err, data) {
+  fs.readFile('data.json', 'utf8' ,function (err, data) {
     if (err) throw err;
-    console.log(data);
-    if (data === undefined) {
-      console.log('Nessun dato da mostrare');
-      res.end();
-    }
+    //Da aggiungere il caso in cui il file è vuoto
     let json = JSON.parse(data);
     json.push(req.body);
     fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));

@@ -5,20 +5,22 @@ export const Events = () => {
     if(eventData.length === 0) return <h1>Nessun evento</h1>
     return (
         <>
-            <HomePageHeader />
-            <div className='events-container'>
-                {eventData.map((data, key) => {
+          <HomePageHeader />
+
+              <table>
+                <TableHeader />
+                  <tbody>
+                    {eventData.map((data, key) => {
                     return (
-                        <div key={key}>
-                            <Event key={key}
-                            dispositivo={data.dispositivo}
-                            IMEI={data.IMEI} 
-                            evento={data.evento}
-                            timestamp={data.timestamp}/>
-                        </div>
+                          <TableBody key={key}
+                          dispositivo={data.dispositivo}
+                          IMEI={data.IMEI} 
+                          evento={data.evento}
+                          timestamp={data.timestamp}/>
                     );
-                })}
-            </div>
+                })};
+                </tbody>
+                </table>
         </>
     );
 };
@@ -32,27 +34,43 @@ const HomePageHeader = () => {
     );
   };
 
-//single event passing data with props
-const Event = ({ dispositivo, IMEI, evento, timestamp }) => {
+//table header
+const TableHeader = () => {
+  return (
+    <>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Assegnatario</th>
+          <th>Nome dispositivo</th>
+          <th>EventLog</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+    </>
+  );
+};
+
+//single event passing data with props to my tbody
+const TableBody = ({ dispositivo, IMEI, evento, timestamp }) => {
     if(!dispositivo) return <h1>Nessun evento da visualizzare</h1>
     return (
-        <table>
-      <tbody>
-        <tr>
-          <td>
-            <h5>{dispositivo}</h5>
-          </td>
-          <td>
-            <h5>{IMEI}</h5>
-          </td>
-          <td>
-            <h5>{evento}</h5>
-          </td>
-          <td>
-            <p>{timestamp}</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <tr>
+            <td>
+              <input type="checkbox"></input>
+            </td>
+            <td>
+              <h5>{dispositivo}</h5>
+            </td>
+            <td>
+              <h5>{IMEI}</h5>
+            </td>
+            <td>
+              <h5>{evento}</h5>
+            </td>
+            <td>
+              <p>{timestamp}</p>
+            </td>
+          </tr>
     );
 };
