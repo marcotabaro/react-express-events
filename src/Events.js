@@ -27,15 +27,28 @@ export const Events = () => {
 };
 
 //my header
-const HomePageHeader = () => {
-    return (
-      <header className="header">
-        <h2>Eventi dal campo</h2>
-        <button>Segna come già letto</button>
-        <button>Assegna responsabile</button>
-      </header>
-    );
+class HomePageHeader extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      read: false
+    };
+    this.HandleReadBtn = this.HandleReadBtn.bind(this);
+  }
+  HandleReadBtn = () => {
+    console.log(`clicked ` + this.state.read)
+    this.setState(state => ({
+      read: !state.read
+    }));
+  }
+  render() {
+    return <header className="header">
+    <h2>Eventi dal campo</h2>
+    <button onClick={this.HandleReadBtn}>Segna come già letto</button>
+    <button>Assegna responsabile</button>
+  </header>
   };
+};
 
 //table header
 const TableHeader = () => {
@@ -60,13 +73,7 @@ class TableBody extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      read: false
     };
-  }
-  HandleReadBtn() {
-    this.setState(state => ({
-      read: !state.read
-    }));
   }
   render () {
     return <tr>
