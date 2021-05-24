@@ -17,10 +17,10 @@ export const Events = () => {
                           IMEI={data.IMEI} 
                           evento={data.evento}
                           timestamp= {data.timestamp}/>
-                          );
+                        );
                     })};
-                </tbody>
-                </table>
+                  </tbody>
+              </table>
         </>
     );
 };
@@ -74,6 +74,9 @@ class TableBody extends React.Component {
     this.state = {
     };
   }
+  dateConversion(time) {
+    return new Date(time);
+  };
   render () {
     return <tr>
     <td>
