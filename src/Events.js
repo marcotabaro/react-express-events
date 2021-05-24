@@ -18,8 +18,8 @@ export const Events = () => {
                           IMEI={data.IMEI} 
                           evento={data.evento}
                           timestamp={data.timestamp}/>
-                    );
-                })};
+                          );
+                    })};
                 </tbody>
                 </table>
         </>
@@ -59,6 +59,14 @@ const TableHeader = () => {
 class TableBody extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      read: false
+    };
+  }
+  HandleReadBtn() {
+    this.setState(state => ({
+      read: !state.read
+    }));
   }
   render () {
     return <tr>
