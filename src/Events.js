@@ -12,9 +12,6 @@ export class Events extends React.Component {
     }
     HandleReadBtn = () => {
       console.log(`clicked ` + this.state.read)
-      if(this.event.target.checked === true){
-        
-      }
       this.setState(state => ({
         read: !state.read
       }));
