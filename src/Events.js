@@ -2,48 +2,50 @@ import React from "react";
 import "./App.css";
 let eventData = require("./data.json");
 
-export const Events = () => {
-    //if(eventData.length === 0) return <h1>Nessun evento</h1>
-    return (
-        <>
-          <HomePageHeader />
-              <table>
-                <TableHeader />
-                  <tbody>
-                    {eventData.map((data, key) => {
-                    return (
-                          <TableBody key={key}
-                          dispositivo={data.dispositivo}
-                          IMEI={data.IMEI} 
-                          evento={data.evento}
-                          timestamp= {data.timestamp}/>
-                        )
-                    })}
-                  </tbody>
-              </table>
-        </>
-    );
+export class Events extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        read: false
+      };
+      this.HandleReadBtn = this.HandleReadBtn.bind(this);
+    }
+    HandleReadBtn = () => {
+      console.log(`clicked ` + this.state.read)
+      this.setState(state => ({
+        read: !state.read
+      }));
+    }
+    render() {
+      return <>
+        <HomePageHeader Read={this.HandleReadBtn}/>
+          <table>
+            <TableHeader />
+              <tbody>
+                {eventData.map((data, key) => {
+                return (
+                      <TableBody key={key}
+                      dispositivo={data.dispositivo}
+                      IMEI={data.IMEI} 
+                      evento={data.evento}
+                      timestamp= {data.timestamp}/>
+                    )
+                })}
+              </tbody>
+          </table>
+      </>
+    };
 };
 
 //my header
 class HomePageHeader extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      read: false
-    };
-    this.HandleReadBtn = this.HandleReadBtn.bind(this);
-  }
-  HandleReadBtn = () => {
-    console.log(`clicked ` + this.state.read)
-    this.setState(state => ({
-      read: !state.read
-    }));
+  Read = () =>{
+    this.props.Read()
   }
   render() {
     return <header className="header">
     <h2>Eventi dal campo</h2>
-    <button onClick={this.HandleReadBtn}>Segna come già letto</button>
+    <button onClick={this.Read}>Segna come già letto</button>
     <button>Assegna responsabile</button>
   </header>
   };
@@ -74,9 +76,6 @@ class TableBody extends React.Component {
     this.state = {
     };
   }
-  dateConversion(time) {
-    return new Date(time);
-  };
   render () {
     return <tr>
     <td>
