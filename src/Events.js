@@ -17,8 +17,8 @@ export const Events = () => {
                           IMEI={data.IMEI} 
                           evento={data.evento}
                           timestamp= {data.timestamp}/>
-                        );
-                    })};
+                        )
+                    })}
                   </tbody>
               </table>
         </>
@@ -80,7 +80,7 @@ class TableBody extends React.Component {
   render () {
     return <tr>
     <td>
-      <input type="checkbox" className="checkbox"></input>
+      <input type="checkbox" className="checkbox[]"></input>
     </td>
     <td>
     {/* Owner creato dinamicamente */} "Questo sara' l'owner"

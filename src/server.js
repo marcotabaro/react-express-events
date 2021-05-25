@@ -23,16 +23,17 @@ app.post('/backend', (req, res) => {
 
     //Date conversion
     let index = (json.length-1);
-    console.log(`json.length: ` + index);
     let myDate = new Date(json[index].timestamp);
-    json[index].timestamp = myDate;
+    json[index]["timestamp"] = myDate;
+
     console.log(`var MyDate: ` + myDate);
     console.log(`timestamp json: ` + json[index].timestamp);
     console.log(`JSON: ` + json[index].timestamp);
+    
     ////////////////
     fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
-    res.end();
   });
+  res.end();
 });
 
 app.listen(port, () => console.log(`Server listening on ${port}`));
