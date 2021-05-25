@@ -28,7 +28,8 @@ app.post('/backend', (req, res) => {
     json[index].timestamp = myDate;
     console.log(`var MyDate: ` + myDate);
     console.log(`timestamp json: ` + json[index].timestamp);
-    console.log(`JSON: ` + json);
+    console.log(`JSON: ` + json[index].timestamp);
+    ////////////////
     fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
     res.end();
   });
