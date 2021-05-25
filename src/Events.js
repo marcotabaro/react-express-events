@@ -12,6 +12,9 @@ export class Events extends React.Component {
     }
     HandleReadBtn = () => {
       console.log(`clicked ` + this.state.read)
+      if(this.event.target.checked === true){
+        
+      }
       this.setState(state => ({
         read: !state.read
       }));
@@ -71,15 +74,13 @@ const TableHeader = () => {
 
 //single event passing data with props to my tbody
 class TableBody extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
+  checked(event) {
+    console.log(event.target.checked, event.target.name);
   }
   render () {
     return <tr>
     <td>
-      <input type="checkbox" className="checkbox[]"></input>
+      <input type="checkbox" onChange={this.checked} defaultChecked={false}></input>
     </td>
     <td>
     {/* Owner creato dinamicamente */} "Questo sara' l'owner"
