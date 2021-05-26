@@ -17,13 +17,13 @@ export class Events extends React.Component {
     }
     render() {
       return <>
-        <HomePageHeader Read={this.HandleReadBtn}/>
+        <HomePageHeader isRead={this.HandleReadBtn}/>
           <table>
             <TableHeader />
               <tbody>
                 {eventData.map((data, key) => {
                 return (
-                      <TableBody key={key}
+                      <TableRow key={key}
                       dispositivo={data.dispositivo}
                       IMEI={data.IMEI} 
                       evento={data.evento}
@@ -39,7 +39,7 @@ export class Events extends React.Component {
 //my header
 class HomePageHeader extends React.Component {
   Read = () =>{
-    this.props.Read()
+    this.props.isRead()
   }
   render() {
     return <header className="header">
@@ -69,7 +69,7 @@ const TableHeader = () => {
 };
 
 //single event passing data with props to my tbody
-class TableBody extends React.Component {
+class TableRow extends React.Component {
   checked(event) {
     console.log(event.target.checked, event.target.name);
   }
