@@ -8,7 +8,6 @@ export class Events extends React.Component {
       this.state = {
         read: false
       };
-      this.HandleReadBtn = this.HandleReadBtn.bind(this);
     }
     HandleReadBtn = () => {
       console.log(`clicked ` + this.state.read)
