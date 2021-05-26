@@ -7,24 +7,30 @@ export class Events extends React.Component {
       super(props);
       this.state = {
         read: false,
-        checked: false
+        select: false
       };
     }
     HandleReadBtn = () => {
-      console.log(`clicked ` + this.state.read)
+      if(this.props.isChecked === true){
+        this.setState(state => ({
+          read: !state.read
+        }));
+      }
+    }
+    handleInputChange = () => {
       this.setState(state => ({
-        read: !state.read
+        select: !state.select
       }));
     }
     render() {
       return <>
-        <HomePageHeader readButton={this.HandleReadBtn}/>
+        <HomePageHeader readButton={this.handleInputChange}/>
           <table>
             <TableHeader />
               <tbody>
                 {eventData.map((data, key) => {
                 return (
-                      <TableRow isRead={this.state.read} isChecked={this.state.checked} key={key}
+                      <TableRow handleChange={this.handleInputChange} isRead={this.state.read} isChecked={this.state.select} key={key}
                       dispositivo={data.dispositivo}
                       IMEI={data.IMEI} 
                       evento={data.evento}
@@ -71,11 +77,16 @@ const TableHeader = () => {
 
 //single event passing data with props to my tbody
 class TableRow extends React.Component {
- 
+  handleChange = () => {
+    this.props.handleChange()
+  }
   render () {
-    return <tr id="n[]" style={this.props.isRead === true ? {backgroundColor: "blue"} : {backgroundColor: "white"}}>
+    return <tr style={
+      this.props.isRead === true && this.state.select === true
+    ? {backgroundColor: "blue"} 
+    : {backgroundColor: "white"}}>
     <td>
-      <input type="checkbox" onChange={this.checked} defaultChecked={false}></input>
+      <input type="checkbox" checked={this.props.isChecked} onChange={this.handleChange}></input>
     </td>
     <td>
     {/* Owner creato dinamicamente */} "Questo sara' l'owner"
