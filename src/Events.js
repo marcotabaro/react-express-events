@@ -6,7 +6,8 @@ export class Events extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        read: false
+        read: false,
+        checked: false
       };
     }
     HandleReadBtn = () => {
@@ -23,7 +24,7 @@ export class Events extends React.Component {
               <tbody>
                 {eventData.map((data, key) => {
                 return (
-                      <TableRow isRead={this.state.read} key={key}
+                      <TableRow isRead={this.state.read} isChecked={this.state.checked} key={key}
                       dispositivo={data.dispositivo}
                       IMEI={data.IMEI} 
                       evento={data.evento}
@@ -70,14 +71,9 @@ const TableHeader = () => {
 
 //single event passing data with props to my tbody
 class TableRow extends React.Component {
-  checked(event) {
-    console.log(event.target.checked);
-    if(event.target.checked === true){
-      return true
-    } else return false
-  }
+ 
   render () {
-    return <tr style={this.checked === true && this.props.read === true ? {backgroundColor: "blue"} : {backgroundColor: "white"}}>
+    return <tr id="n[]" style={this.props.isRead === true ? {backgroundColor: "blue"} : {backgroundColor: "white"}}>
     <td>
       <input type="checkbox" onChange={this.checked} defaultChecked={false}></input>
     </td>
