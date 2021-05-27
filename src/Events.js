@@ -17,11 +17,11 @@ export class Events extends React.Component {
         }));
       }
     }
-    handleInputChange = () => {
-      this.setState(state => ({
-        select: !state.select
-      }));
-    }
+    // handleInputChange = () => {
+    //   this.setState(state => ({
+    //     select: !state.select
+    //   }));
+    // }
     render() {
       return <>
         <HomePageHeader readButton={this.handleInputChange}/>
