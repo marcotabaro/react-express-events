@@ -10,18 +10,7 @@ export class Events extends React.Component {
         select: false
       };
     }
-    HandleReadBtn = () => {
-      if(this.props.isChecked === true){
-        this.setState(state => ({
-          read: !state.read
-        }));
-      }
-    }
-    // handleInputChange = () => {
-    //   this.setState(state => ({
-    //     select: !state.select
-    //   }));
-    // }
+
     render() {
       return <>
         <HomePageHeader readButton={this.handleInputChange}/>
@@ -30,7 +19,9 @@ export class Events extends React.Component {
               <tbody>
                 {eventData.map((data, key) => {
                 return (
-                      <TableRow handleChange={this.handleInputChange} isRead={this.state.read} isChecked={this.state.select} key={key}
+                      <TableRow handleChange={this.handleInputChange}
+                      key={key}
+                      id={key}
                       dispositivo={data.dispositivo}
                       IMEI={data.IMEI} 
                       evento={data.evento}
@@ -81,12 +72,9 @@ class TableRow extends React.Component {
     this.props.handleChange()
   }
   render () {
-    return <tr style={
-      this.props.isRead === true && this.state.select === true
-    ? {backgroundColor: "blue"} 
-    : {backgroundColor: "white"}}>
+    return <tr>
     <td>
-      <input type="checkbox" checked={this.props.isChecked} onChange={this.handleChange}></input>
+      <input type="checkbox" onChange={this.handleChange} id={this.props.id}></input>
     </td>
     <td>
     {/* Owner creato dinamicamente */} "Questo sara' l'owner"
