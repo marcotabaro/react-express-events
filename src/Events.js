@@ -24,7 +24,7 @@ export class Events extends React.Component {
               <tbody>
                 {eventData.map((data, key) => {
                 return (
-                      <TableRow style={this.props.key === this.props.id ? {backgroundColor: "red"} : {backgroundColor: "blue"}}
+                      <TableRow
                       handleInputChange={this.handleInputChange}
                       checked={this.state.checked}
                       key={key}
@@ -79,7 +79,7 @@ class TableRow extends React.Component {
     this.props.handleInputChange()
   }
   render () {
-    return <tr>
+    return <tr style={this.props.key === this.props.id ? {backgroundColor: "red"} : {backgroundColor: "blue"}}>
     <td>
       <input type="checkbox" onChange={this.handleInputChange} value={this.props.checked} id={this.props.id}></input>
     </td>
