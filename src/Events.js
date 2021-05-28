@@ -7,21 +7,26 @@ export class Events extends React.Component {
       super(props);
       this.state = {
         read: false,
-        select: false
+        checked: false
       };
     }
     handleInputChange = () => {
-
+      console.log(TableRow.id.value);
+    }
+    handleButtonChange = () => {
+      
     }
     render() {
       return <>
-        <HomePageHeader readButton={this.handleInputChange}/>
+        <HomePageHeader readButton={this.handleButtonChange}/>
           <table>
             <TableHeader />
               <tbody>
                 {eventData.map((data, key) => {
                 return (
-                      <TableRow handleChange={this.handleInputChange}
+                      <TableRow style={this.props.key === this.props.id ? {backgroundColor: "red"} : {backgroundColor: "blue"}}
+                      handleInputChange={this.handleInputChange}
+                      checked={this.state.checked}
                       key={key}
                       id={key}
                       dispositivo={data.dispositivo}
@@ -70,13 +75,13 @@ const TableHeader = () => {
 
 //single event passing data with props to my tbody
 class TableRow extends React.Component {
-  handleChange = () => {
-    this.props.handleChange()
+  handleInputChange = () => {
+    this.props.handleInputChange()
   }
   render () {
     return <tr>
     <td>
-      <input type="checkbox" onChange={this.handleChange} id={this.props.id}></input>
+      <input type="checkbox" onChange={this.handleInputChange} value={this.props.checked} id={this.props.id}></input>
     </td>
     <td>
     {/* Owner creato dinamicamente */}
