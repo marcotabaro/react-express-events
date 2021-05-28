@@ -10,7 +10,9 @@ export class Events extends React.Component {
         select: false
       };
     }
+    handleInputChange = () => {
 
+    }
     render() {
       return <>
         <HomePageHeader readButton={this.handleInputChange}/>
@@ -77,7 +79,7 @@ class TableRow extends React.Component {
       <input type="checkbox" onChange={this.handleChange} id={this.props.id}></input>
     </td>
     <td>
-    {/* Owner creato dinamicamente */} "Questo sara' l'owner"
+    {/* Owner creato dinamicamente */}
     </td>
     <td>
       <h5>{this.props.dispositivo}</h5>
