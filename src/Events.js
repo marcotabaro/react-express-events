@@ -32,6 +32,11 @@ export class Events extends React.Component {
         }
         console.log(eventsTable.rows[i].children[0].children[0].checked);
       }
+      setTimeout(() => {
+        for(let i = 0; i < eventsTable.rows.length; i++) {
+          eventsTable.rows[i].children[0].children[0].checked = false;
+        }
+      }, 1000)
       this.setState(currentState);
     }
     handleButtonOwner = () => {
