@@ -16,9 +16,10 @@ export class Events extends React.Component {
     handleButtonChange = () => {
       
     }
+    handleButtonOwner
     render() {
       return <>
-        <HomePageHeader readButton={this.handleButtonChange}/>
+        <HomePageHeader readButton={this.handleButtonChange} assignOwner={this.handleButtonOwner}/>
           <table>
             <TableHeader />
               <tbody>
@@ -43,14 +44,18 @@ export class Events extends React.Component {
 
 //my header
 class HomePageHeader extends React.Component {
-  Read = () =>{
+  Read = () => {
     this.props.readButton()
+  }
+
+  Author = () => {
+    this.props.assignOwner()
   }
   render() {
     return <header className="header">
     <h2>Eventi dal campo</h2>
     <button onClick={this.Read}>Segna come già letto</button>
-    <button>Assegna responsabile</button>
+    <button onClick={this.Author}>Assegna responsabile</button>
   </header>
   };
 };
