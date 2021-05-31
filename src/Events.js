@@ -1,38 +1,63 @@
 import React from "react";
 import "./App.css";
+
 let eventData = require("./data.json");
 
 export class Events extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {
-        read: false,
-        checked: false
-      };
+      this.state = {events: []};
+      setTimeout(() => {
+        console.log(eventData);
+        // this.state = {"events": eventData} //load mock data
+        this.setState({"events": eventData})
+      }, 1000)
+      this.handleInputChange = this.handleInputChange.bind(this);
     }
-    handleInputChange = () => {
-      console.log(TableRow.id.value);
+    handleInputChange(event) {
+      // this.setState({
+      //   value: event.target.checked,
+      //   id: event.target.name
+      // });
+      // console.log(this.state);
     }
-    handleButtonChange = () => {
-      
+    handleButtonChange = (event) => {
+      const eventsTable = document.getElementById('events-table');
+      const currentState = this.state;
+      for(let i = 0; i < eventsTable.rows.length; i++) {
+        if(eventsTable.rows[i].children[0].children[0].checked === true) {
+          eventData.done = true;
+        } else {
+          eventData.done = false;
+        }
+        console.log(eventsTable.rows[i].children[0].children[0].checked);
+      }
+      this.setState(currentState);
+    }
+    handleButtonOwner = () => {
+
     }
     render() {
       return <>
-        <HomePageHeader readButton={this.handleButtonChange}/>
+        <HomePageHeader
+        readButton={this.handleButtonChange} 
+        assignOwner={this.handleButtonOwner}/>
           <table>
             <TableHeader />
-              <tbody>
-                {eventData.map((data, key) => {
+              <tbody id="events-table">
+                {this.state.events.map((data, key) => {
                 return (
-                      <TableRow className="unchecked"
+                      <TableRow
+                      className="unchecked"
                       handleInputChange={this.handleInputChange}
-                      checked={this.state.checked}
+                      done={data.done}
                       key={key}
                       id={key}
                       dispositivo={data.dispositivo}
                       IMEI={data.IMEI} 
                       evento={data.evento}
-                      timestamp= {data.timestamp}/>
+                      timestamp= {data.timestamp}
+                      />
                     )
                 })}
               </tbody>
@@ -43,14 +68,18 @@ export class Events extends React.Component {
 
 //my header
 class HomePageHeader extends React.Component {
-  Read = () =>{
-    this.props.readButton()
+  Read = (event) => {
+    this.props.readButton(event)
+  }
+
+  Author = () => {
+    this.props.assignOwner()
   }
   render() {
     return <header className="header">
     <h2>Eventi dal campo</h2>
     <button onClick={this.Read}>Segna come già letto</button>
-    <button>Assegna responsabile</button>
+    <button onClick={this.Author}>Assegna responsabile</button>
   </header>
   };
 };
@@ -62,6 +91,7 @@ const TableHeader = () => {
       <thead>
         <tr>
           <th></th>
+          <th>letto/non letto</th>
           <th>Proprietario</th>
           <th>Nome dispositivo</th>
           <th>IMEI</th>
@@ -75,13 +105,18 @@ const TableHeader = () => {
 
 //single event passing data with props to my tbody
 class TableRow extends React.Component {
-  handleInputChange = () => {
-    this.props.handleInputChange()
+  handleInputChange = (event) => {
+    this.props.handleInputChange(event)
   }
   render () {
-    return <tr style={this.props.key === this.props.id ? {backgroundColor: "red"} : {backgroundColor: "blue"}}>
+    return <tr>
     <td>
-      <input type="checkbox" onChange={this.handleInputChange} value={this.props.checked} id={this.props.id}></input>
+      <input type="checkbox"
+      onChange={this.handleInputChange}
+      name={this.props.id}></input>
+    </td>
+    <td>
+      {this.props.done ? "letto" : "non letto"}
     </td>
     <td>
     {/* Owner creato dinamicamente */}

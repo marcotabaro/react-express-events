@@ -36,10 +36,10 @@ td {
   width: 5em;
 }
 
-.unchecked {
+.checked {
   background-color: green;
 }
 
-.checked {
-  background-color: red;
+.unchecked {
+  background-color:white;
 }
