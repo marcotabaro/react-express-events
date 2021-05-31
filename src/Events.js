@@ -24,7 +24,7 @@ export class Events extends React.Component {
               <tbody>
                 {eventData.map((data, key) => {
                 return (
-                      <TableRow
+                      <TableRow className="unchecked"
                       handleInputChange={this.handleInputChange}
                       checked={this.state.checked}
                       key={key}

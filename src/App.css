@@ -35,3 +35,11 @@ td {
 .checkbox {
   width: 5em;
 }
+
+.unchecked {
+  background-color: green;
+}
+
+.checked {
+  background-color: red;
+}
