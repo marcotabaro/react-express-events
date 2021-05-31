@@ -21,14 +21,14 @@ export class Events extends React.Component {
       // });
       // console.log(this.state);
     }
-    handleButtonChange = (event) => {
+    handleButtonChange = () => {
       const eventsTable = document.getElementById('events-table');
       const currentState = this.state;
       for(let i = 0; i < eventsTable.rows.length; i++) {
         if(eventsTable.rows[i].children[0].children[0].checked === true) {
-          eventData.done = true;
+          currentState.events[i].done = true;
         } else {
-          eventData.done = false;
+          currentState.events[i].done = false;
         }
         console.log(eventsTable.rows[i].children[0].children[0].checked);
       }
@@ -109,9 +109,10 @@ class TableRow extends React.Component {
     this.props.handleInputChange(event)
   }
   render () {
-    return <tr>
+    return <tr className={this.props.done ? "checked" : "unchecked"}>
     <td>
-      <input type="checkbox"
+      <input
+      type="checkbox"
       onChange={this.handleInputChange}
       name={this.props.id}></input>
     </td>

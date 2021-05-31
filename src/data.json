@@ -1,1 +1,1 @@
-[{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"test", "done": false}]
+[{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"test"},{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"2021-05-31T21:21:49.848Z"},{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"2021-05-31T21:21:50.743Z"}]
