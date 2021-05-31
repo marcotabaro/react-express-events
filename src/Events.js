@@ -26,9 +26,9 @@ export class Events extends React.Component {
       const currentState = this.state;
       for(let i = 0; i < eventsTable.rows.length; i++) {
         if(eventsTable.rows[i].children[0].children[0].checked === true) {
-          eventsTable.rows[i].done = true;
+          eventData.done = true;
         } else {
-          eventsTable.rows[i].done = false;
+          eventData.done = false;
         }
         console.log(eventsTable.rows[i].children[0].children[0].checked);
       }
