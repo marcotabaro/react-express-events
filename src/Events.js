@@ -6,15 +6,9 @@ let eventData = require("./data.json");
 export class Events extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {events: []};
-      setTimeout(() => {
-        console.log(eventData);
-        // this.state = {"events": eventData} //load mock data
-        this.setState({"events": eventData})
-      }, 1000)
-      this.handleInputChange = this.handleInputChange.bind(this);
+      this.state = {"events": eventData};
     }
-    handleInputChange(event) {
+    handleInputChange() {
       // this.setState({
       //   value: event.target.checked,
       //   id: event.target.name
@@ -25,18 +19,11 @@ export class Events extends React.Component {
       const eventsTable = document.getElementById('events-table');
       const currentState = this.state;
       for(let i = 0; i < eventsTable.rows.length; i++) {
-        if(eventsTable.rows[i].children[0].children[0].checked === true) {
-          currentState.events[i].done = true;
-        } else {
-          currentState.events[i].done = false;
-        }
+        eventsTable.rows[i].children[0].children[0].checked === true 
+        ? currentState.events[i].done = true
+        : currentState.events[i].done = false
         console.log(eventsTable.rows[i].children[0].children[0].checked);
       }
-      setTimeout(() => {
-        for(let i = 0; i < eventsTable.rows.length; i++) {
-          eventsTable.rows[i].children[0].children[0].checked = false;
-        }
-      }, 1000)
       this.setState(currentState);
     }
     handleButtonOwner = () => {
@@ -110,9 +97,9 @@ const TableHeader = () => {
 
 //single event passing data with props to my tbody
 class TableRow extends React.Component {
-  handleInputChange = (event) => {
-    this.props.handleInputChange(event)
-  }
+  // handleInputChange = (event) => {
+  //   this.props.handleInputChange(event)
+  // }
   render () {
     return <tr className={this.props.done ? "checked" : "unchecked"}>
     <td>
