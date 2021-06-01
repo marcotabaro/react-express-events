@@ -34,12 +34,11 @@ export class Events extends React.Component {
         //   json.push(currentState.events[i].done = false);
         //   fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
         // })
-        console.log(eventsTable.rows[i].children[0].children[0].checked);
       }
       this.setState(currentState);
     }
     handleButtonOwner = () => {
-      let owner = prompt(`Inserisci nome`);
+      let owner = prompt(`Inserisci proprietario`);
       const eventsTable = document.getElementById('events-table');
       const currentState = this.state;
       for(let i = 0; i < eventsTable.rows.length; i++) {
@@ -48,7 +47,12 @@ export class Events extends React.Component {
         }
       }
       this.setState(currentState);
-      console.log(currentState);
+    }
+    handleSelectAll = () => {
+      const eventsTable = document.getElementById('events-table');
+      for(let i = 0; i < eventsTable.rows.length; i++) {
+        eventsTable.rows[i].children[0].children[0].checked = !eventsTable.rows[i].children[0].children[0].checked
+      }
     }
     render() {
       return <>
@@ -56,7 +60,7 @@ export class Events extends React.Component {
         readButton={this.handleButtonChange} 
         assignOwner={this.handleButtonOwner}/>
           <table>
-            <TableHeader />
+            <TableHeader selectAll={this.handleSelectAll}/>
               <tbody id="events-table">
                 {this.state.events.map((data, key) => {
                 return (
@@ -99,22 +103,27 @@ class HomePageHeader extends React.Component {
 };
 
 //table header
-const TableHeader = () => {
-  return (
-    <>
-      <thead>
-        <tr>
-          <th></th>
-          <th>letto/non letto</th>
-          <th>Proprietario</th>
-          <th>Nome dispositivo</th>
-          <th>IMEI</th>
-          <th>Evento</th>
-          <th>Data</th>
-        </tr>
-      </thead>
-    </>
-  );
+class TableHeader extends React.Component {
+  SelectAll = () => {
+    this.props.selectAll()
+  }
+  render() {
+    return (
+      <>
+        <thead>
+          <tr>
+            <th><input type="checkbox" onChange={this.SelectAll}></input> </th>
+            <th>letto/non letto</th>
+            <th>Proprietario</th>
+            <th>Nome dispositivo</th>
+            <th>IMEI</th>
+            <th>Evento</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+      </>
+    );
+  };
 };
 
 //single event passing data with props to my tbody
