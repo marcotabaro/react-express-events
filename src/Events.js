@@ -1,7 +1,5 @@
 import React from "react";
 import "./App.css";
-const fs = require('fs');
-const path = require('path');
 
 let eventData = require("./data.json");
 
@@ -45,11 +43,12 @@ export class Events extends React.Component {
       const eventsTable = document.getElementById('events-table');
       const currentState = this.state;
       for(let i = 0; i < eventsTable.rows.length; i++) {
-        eventsTable.rows[i].children[0].children[0].checked === true
-        ? currentState.events[i].proprietario = owner
-        : currentState.events[i].proprietario = '';
+        if(eventsTable.rows[i].children[0].children[0].checked === true){
+          currentState.events[i].proprietario = owner;
+        }
       }
       this.setState(currentState);
+      console.log(currentState);
     }
     render() {
       return <>
@@ -63,7 +62,7 @@ export class Events extends React.Component {
                 return (
                       <TableRow
                       className="unchecked"
-                      owner={data.proprietario}
+                      owner={data.proprietario || 'none'}
                       // handleInputChange={this.handleInputChange}
                       done={data.done}
                       key={key}
