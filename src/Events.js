@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+const fs = require('fs');
+const path = require('path');
 
 let eventData = require("./data.json");
 
@@ -21,13 +23,33 @@ export class Events extends React.Component {
       for(let i = 0; i < eventsTable.rows.length; i++) {
         eventsTable.rows[i].children[0].children[0].checked === true 
         ? currentState.events[i].done = true
+        // fs.readFile('data.json', 'utf8', function (err, data) {
+        //   if (err) throw err;
+        //   let json = JSON.parse(data);
+        //   json.push(currentState.events[i].done = true);
+        //   fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
+        // })
         : currentState.events[i].done = false
+        // fs.readFileSync('data.json', 'utf8', function(err, data) {
+        //   if (err) throw err;
+        //   let json = JSON.parse(data);
+        //   json.push(currentState.events[i].done = false);
+        //   fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
+        // })
         console.log(eventsTable.rows[i].children[0].children[0].checked);
       }
       this.setState(currentState);
     }
     handleButtonOwner = () => {
-
+      let owner = prompt(`Inserisci nome`);
+      const eventsTable = document.getElementById('events-table');
+      const currentState = this.state;
+      for(let i = 0; i < eventsTable.rows.length; i++) {
+        eventsTable.rows[i].children[0].children[0].checked === true
+        ? currentState.events[i].proprietario = owner
+        : currentState.events[i].proprietario = '';
+      }
+      this.setState(currentState);
     }
     render() {
       return <>
@@ -41,7 +63,8 @@ export class Events extends React.Component {
                 return (
                       <TableRow
                       className="unchecked"
-                      handleInputChange={this.handleInputChange}
+                      owner={data.proprietario}
+                      // handleInputChange={this.handleInputChange}
                       done={data.done}
                       key={key}
                       id={key}
@@ -112,7 +135,7 @@ class TableRow extends React.Component {
       {this.props.done ? "letto" : "non letto"}
     </td>
     <td>
-    {/* Owner creato dinamicamente */}
+      {this.props.owner}
     </td>
     <td>
       <h5>{this.props.dispositivo}</h5>
