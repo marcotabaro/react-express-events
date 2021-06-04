@@ -7,6 +7,7 @@ export class Events extends React.Component {
     constructor(props) {
       super(props);
       this.state = {"events": eventData};
+      
     }
     handleInputChange() {
       // this.setState({
@@ -19,35 +20,75 @@ export class Events extends React.Component {
       const eventsTable = document.getElementById('events-table');
       const currentState = this.state;
       for(let i = 0; i < eventsTable.rows.length; i++) {
-        eventsTable.rows[i].children[0].children[0].checked === true 
-        ? currentState.events[i].done = true
-        // fs.readFile('data.json', 'utf8', function (err, data) {
-        //   if (err) throw err;
-        //   let json = JSON.parse(data);
-        //   json.push(currentState.events[i].done = true);
-        //   fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
-        // })
-        : currentState.events[i].done = false
-        // fs.readFileSync('data.json', 'utf8', function(err, data) {
-        //   if (err) throw err;
-        //   let json = JSON.parse(data);
-        //   json.push(currentState.events[i].done = false);
-        //   fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
-        // })
+        const pre = currentState.events[i].done || false; 
+        currentState.events[i].done = eventsTable.rows[i].children[0].children[0].checked;
+
+        if(pre!==currentState.events[i].done){
+          // TODO salvalo
+        }
+
+        // eventsTable.rows[i].children[0].children[0].checked === true 
+        // ? currentState.events[i].done = true
+        // // fs.readFile('data.json', 'utf8', function (err, data) {
+        // //   if (err) throw err;
+        // //   let json = JSON.parse(data);
+        // //   json.push(currentState.events[i].done = true);
+        // //   fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
+        // // })
+        // : currentState.events[i].done = false
+        // // fs.readFileSync('data.json', 'utf8', function(err, data) {
+        // //   if (err) throw err;
+        // //   let json = JSON.parse(data);
+        // //   json.push(currentState.events[i].done = false);
+        // //   fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
+        // // })
+        console.log(currentState.events[i]);
       }
       this.setState(currentState);
     }
+    // handleButtonOwner = () => {
+    //   const eventsTable = document.getElementById('events-table');
+    //   const currentState = this.state;
+    //   var owner;
+    //   let counter = 0;
+      
+    //   for(var i = 0; i < eventsTable.rows.length; i++) {
+    //     if(eventsTable.rows[i].children[0].children[0].checked === true){
+    //       counter++;
+    //       currentState.events[i].proprietario = owner;
+    //     }
+    //   }
+    //   if(counter <= 0) {
+    //     alert(`non hai selezionato nessun evento, per favore selezionane uno`);
+    //   } else if(!owner){
+    //     let myOwner = prompt(`Inserisci proprietario`);
+    //     owner = myOwner;
+    //     this.setState(currentState);
+    //     console.log(owner);
+    //     console.log(myOwner);
+    //     console.log(currentState.events[0].proprietario);
+    //   }
+    // }
     handleButtonOwner = () => {
-      let owner = prompt(`Inserisci proprietario`);
       const eventsTable = document.getElementById('events-table');
       const currentState = this.state;
-      for(let i = 0; i < eventsTable.rows.length; i++) {
+      var indexes = [];
+      for(var i = 0; i < eventsTable.rows.length; i++) {
         if(eventsTable.rows[i].children[0].children[0].checked === true){
-          currentState.events[i].proprietario = owner;
+            indexes.push(i)
         }
+      }
+      if(indexes.length === 0){
+        alert(`per favore seleziona casella`)
+      } else {
+        let owner = prompt(`inserisci proprietario`);
+        indexes.forEach(index => {
+          currentState.events[index].proprietario = owner;
+        });
       }
       this.setState(currentState);
     }
+
     handleSelectAll = () => {
       const eventsTable = document.getElementById('events-table');
       for(let i = 0; i < eventsTable.rows.length; i++) {
