@@ -6,6 +6,8 @@ let eventData = require("./data.json");
 export class Events extends React.Component {
     constructor(props) {
       super(props);
+      //Ajax get read
+      //Ajax Post modifica/Aggiunta
       this.state = {"events": eventData};
     }
     handleInputChange() {
