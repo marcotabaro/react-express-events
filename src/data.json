@@ -1,1 +1,1 @@
-[{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"2021-06-07T13:41:10.184Z","id":"d6b46fb0-51d8-4796-b660-baf4f249e852"}]
+[{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"2021-06-07T13:41:10.184Z","id":"d6b46fb0-51d8-4796-b660-baf4f249e852"},{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"2021-06-07T15:02:08.595Z","id":"7b5aa27d-34e7-4814-9395-ddb630cecba0"},{"dispositivo":"TEST","IMEI":"0123456789","evento":"ping","timestamp":"2021-06-07T15:02:18.688Z","id":"48de827e-97f8-4200-a6f3-66f3f602733f"}]
