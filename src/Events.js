@@ -7,7 +7,6 @@ export class Events extends React.Component {
     constructor(props) {
       super(props);
       this.state = {"events": eventData};
-      
     }
     handleInputChange() {
       // this.setState({
