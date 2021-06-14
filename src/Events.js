@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 
+const fs = require('fs');
+
 let eventData = require("./data.json");
 
 export class Events extends React.Component {
@@ -19,6 +21,11 @@ export class Events extends React.Component {
     componentDidMount() {
       fetch("/backend/events")
         .then(res => res.json())
+        .then(res => {
+          fs.readFile('data.json', 'utf8' ,function (err, data) {
+            res.json(JSON.parse(data))
+          });
+        })
         .then(
           (result) => {
             this.setState({
