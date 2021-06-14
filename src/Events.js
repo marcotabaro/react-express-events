@@ -11,13 +11,13 @@ export class Events extends React.Component {
       this.state = {
         //"events": eventData,
         events: [],
-        isLoaded = false,
-        error= null,
+        isLoaded: false,
+        error: null,
       };
     }
     //Ajax call
     componentDidMount() {
-      fetch("/backend/evnts")
+      fetch("/backend/events")
         .then(res => res.json())
         .then(
           (result) => {
