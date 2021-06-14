@@ -8,7 +8,31 @@ export class Events extends React.Component {
       super(props);
       //Ajax get read
       //Ajax Post modifica/Aggiunta
-      this.state = {"events": eventData};
+      this.state = {
+        //"events": eventData,
+        events: [],
+        isLoaded = false,
+        error= null,
+      };
+    }
+    //Ajax call
+    componentDidMount() {
+      fetch("/backend/evnts")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              isLoaded: true,
+              events: result.events
+            });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        )
     }
     handleInputChange() {
       // this.setState({
@@ -97,6 +121,7 @@ export class Events extends React.Component {
       }
     }
     render() {
+      const { error, isLoaded, events } = this.state;
       return <>
         <HomePageHeader
         readButton={this.handleButtonChange} 
@@ -104,7 +129,7 @@ export class Events extends React.Component {
           <table>
             <TableHeader selectAll={this.handleSelectAll}/>
               <tbody id="events-table">
-                {this.state.events.map((data, key) => {
+                {events.map((data, key) => {
                 return (
                       <TableRow
                       className="unchecked"

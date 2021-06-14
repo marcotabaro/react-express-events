@@ -52,7 +52,6 @@ app.put('/backend/event/:id', (req, res) => {
   } else {
     res.status(400).send(`Missing ID`);
   }
- 
 })
 
 app.listen(port, () => console.log(`Server listening on ${port}`));
