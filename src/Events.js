@@ -19,7 +19,7 @@ export class Events extends React.Component {
     }
     //Ajax call
     componentDidMount() {
-      fetch("/backend/events")
+      fetch("/homepage")
         .then(res => res.json())
         .then(res => {
           fs.readFile('data.json', 'utf8' ,function (err, data) {
