@@ -12,7 +12,7 @@ export class Events extends React.Component {
       //Ajax Post modifica/Aggiunta
       this.state = {
         //"events": eventData,
-        events: [],
+        events: eventData,
         isLoaded: false,
         error: null,
       };
