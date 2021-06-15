@@ -2,13 +2,13 @@ import React from "react";
 import "./App.css";
 
 const fs = require('fs');
+const axios = require('axios');
 
 let eventData = require("./data.json");
 
 export class Events extends React.Component {
     constructor(props) {
       super(props);
-      //Ajax get read
       //Ajax Post modifica/Aggiunta
       this.state = {
         //"events": eventData,
@@ -17,7 +17,7 @@ export class Events extends React.Component {
         error: null,
       };
     }
-    //Ajax call
+    //Ajax get
     componentDidMount() {
       fetch('./data.json'
       ,{
@@ -35,6 +35,13 @@ export class Events extends React.Component {
           console.log(myJson);
           setData(myJson)
         });
+        //Axios Post
+        axios({
+          method: 'post',
+          url: 'http://localhost:3000/events',
+          //data: {}
+      })
+      .then(res => this.setState({ recipes: res.data }));
     }
     handleInputChange() {
       // this.setState({
