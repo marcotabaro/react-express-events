@@ -30,7 +30,7 @@ export class Events extends React.Component {
           (result) => {
             this.setState({
               isLoaded: true,
-              events: result.events
+              events: eventData
             });
           },
           (error) => {
@@ -127,10 +127,43 @@ export class Events extends React.Component {
         eventsTable.rows[i].children[0].children[0].checked = !eventsTable.rows[i].children[0].children[0].checked
       }
     }
+    // render() {
+    //   return <>
+    //     <HomePageHeader
+    //     readButton={this.handleButtonChange} 
+    //     assignOwner={this.handleButtonOwner}/>
+    //       <table>
+    //         <TableHeader selectAll={this.handleSelectAll}/>
+    //           <tbody id="events-table">
+    //             {events.map((data, key) => {
+    //             return (
+    //                   <TableRow
+    //                   className="unchecked"
+    //                   owner={data.proprietario || 'none'}
+    //                   // handleInputChange={this.handleInputChange}
+    //                   done={data.done}
+    //                   key={key}
+    //                   id={key}
+    //                   dispositivo={data.dispositivo}
+    //                   IMEI={data.IMEI} 
+    //                   evento={data.evento}
+    //                   timestamp= {data.timestamp}
+    //                   />
+    //                 )
+    //             })}
+    //           </tbody>
+    //       </table>
+    //   </>
+    // };
     render() {
       const { error, isLoaded, events } = this.state;
-      return <>
-        <HomePageHeader
+      if (error) {
+        return <div>Error: {error.message}</div>;
+      } else if (!isLoaded) {
+        return <div>Loading...</div>;
+      } else {
+        return <>
+       <HomePageHeader
         readButton={this.handleButtonChange} 
         assignOwner={this.handleButtonOwner}/>
           <table>
@@ -155,7 +188,8 @@ export class Events extends React.Component {
               </tbody>
           </table>
       </>
-    };
+      }
+    }
 };
 
 //my header
