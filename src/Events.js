@@ -21,16 +21,16 @@ export class Events extends React.Component {
     componentDidMount() {
       fetch("/homepage")
         .then(res => res.json())
-        .then(res => {
-          fs.readFile('data.json', 'utf8' ,function (err, data) {
-            res.json(JSON.parse(data))
-          });
-        })
+        // .then(res => {
+        //   fs.readFile('data.json', 'utf8' ,function (err, data) {
+        //     res.json(JSON.parse(data))
+        //   });
+        // })
         .then(
           (result) => {
             this.setState({
               isLoaded: true,
-              events: eventData
+              events: result.events
             });
           },
           (error) => {
