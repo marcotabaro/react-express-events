@@ -19,27 +19,22 @@ export class Events extends React.Component {
     }
     //Ajax call
     componentDidMount() {
-      fetch("/homepage")
-        .then(res => res.json())
-        // .then(res => {
-        //   fs.readFile('data.json', 'utf8' ,function (err, data) {
-        //     res.json(JSON.parse(data))
-        //   });
-        // })
-        .then(
-          (result) => {
-            this.setState({
-              isLoaded: true,
-              events: result.events
-            });
-          },
-          (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          }
-        )
+      fetch('./data.json'
+      ,{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      }
+      )
+        .then(function(response){
+          console.log(response)
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+          setData(myJson)
+        });
     }
     handleInputChange() {
       // this.setState({
