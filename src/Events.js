@@ -1,15 +1,15 @@
 import React from "react";
 import "./App.css";
+import axios from 'axios';
 
 const fs = require('fs');
-const axios = require('axios');
 
 let eventData = require("./data.json");
 
 export class Events extends React.Component {
     constructor(props) {
       super(props);
-      //Ajax Post modifica/Aggiunta
+      this.getEvents = this.getEvents.bind(this);
       this.state = {
         //"events": eventData,
         events: eventData,
@@ -18,31 +18,43 @@ export class Events extends React.Component {
       };
     }
     //Ajax get
+
     componentDidMount() {
-      fetch('./data.json'
-      ,{
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-      }
-      )
-        .then(function(response){
-          console.log(response)
-          return response.json();
-        })
-        .then(function(myJson) {
-          console.log(myJson);
-          setData(myJson)
-        });
-        //Axios Post
-        axios({
-          method: 'post',
-          url: 'http://localhost:3000/events',
-          //data: {}
-      })
-      .then(res => this.setState({ recipes: res.data }));
+      this.getEvents();
     }
+    
+    //Ajax Post
+    async getEvents() {
+      // With error handling
+      let body = {
+        dispositivo: 'TEST',
+        IMEI: "0123456789",
+        evento: 'ping'
+      };
+      fetch("http://localhost:5000/backend/event", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(body)
+      })
+        .then(response => {
+          let json = response.json();
+          console.log(json);
+          this.setState({ 
+            isLoaded: true,
+            events: json })
+          if (!response.ok) {
+            throw new Error("Network error");
+          }
+          return response.blob();
+        })
+        .catch(error => {
+          console.error(
+            "There has been a problem:",
+            error
+          );
+        });
+    }
+
     handleInputChange() {
       // this.setState({
       //   value: event.target.checked,
@@ -137,7 +149,7 @@ export class Events extends React.Component {
     //       <table>
     //         <TableHeader selectAll={this.handleSelectAll}/>
     //           <tbody id="events-table">
-    //             {events.map((data, key) => {
+    //             {this.state.events.map((data, key) => {
     //             return (
     //                   <TableRow
     //                   className="unchecked"
@@ -157,6 +169,7 @@ export class Events extends React.Component {
     //       </table>
     //   </>
     // };
+
     render() {
       const { error, isLoaded, events } = this.state;
       if (error) {
