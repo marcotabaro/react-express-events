@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const uuid = require('uuid');
 const path = require('path');
 const fs = require('fs');
@@ -6,6 +7,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/backend/events', (request, response) => {
   fs.readFile('data.json', 'utf8' ,function (err, data) {

@@ -2,58 +2,80 @@ import React from "react";
 import "./App.css";
 import axios from 'axios';
 
-const fs = require('fs');
-
-let eventData = require("./data.json");
+//let eventData = require("./data.json");
 
 export class Events extends React.Component {
     constructor(props) {
       super(props);
+      //this.postEvents = this.postEvents.bind(this);
       this.getEvents = this.getEvents.bind(this);
       this.state = {
         //"events": eventData,
-        events: eventData,
+        events: [],
         isLoaded: false,
         error: null,
       };
     }
-    //Ajax get
-
-    componentDidMount() {
-      this.getEvents();
-    }
     
-    //Ajax Post
-    async getEvents() {
-      // With error handling
-      let body = {
-        dispositivo: 'TEST',
-        IMEI: "0123456789",
-        evento: 'ping'
-      };
-      fetch("http://localhost:5000/backend/event", {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(body)
-      })
-        .then(response => {
-          let json = response.json();
-          console.log(json);
-          this.setState({ 
-            isLoaded: true,
-            events: json })
-          if (!response.ok) {
-            throw new Error("Network error");
-          }
-          return response.blob();
-        })
-        .catch(error => {
-          console.error(
-            "There has been a problem:",
-            error
-          );
-        });
+    componentDidMount() {
+      //Ajax get
+      this.getEvents();
+      //this.postEvents();
     }
+    //Ajax get
+    async getEvents() {
+      axios.get("http://localhost:5000/backend/events")
+      .then(res => {
+        const events = res.data
+        console.log(res);
+        console.log(events);
+
+        this.setState({
+          events: events,
+          isLoaded: true,
+          error: null
+        })
+      })
+      .catch(err => {
+
+        this.setState({
+          isLoaded:false,
+          error: err
+        })
+        console.log(err);
+      })
+    }
+    //Ajax Post
+    // async postEvents() {
+    //   // With error handling
+    //   let body = {
+    //     dispositivo: 'TEST',
+    //     IMEI: "0123456789",
+    //     evento: 'ping'
+    //   };
+    //   fetch("http://localhost:5000/backend/event", {
+    //     method: "POST",
+    //     mode: "no-cors",
+    //     body: JSON.stringify(body)
+    //   })
+    //     .then(response => {
+    //       let json = response.json();
+    //       console.log(json);
+    //       this.setState({ 
+    //         isLoaded: true,
+    //         events: json })
+    //       if (!response.ok) {
+    //         throw new Error("Network error");
+    //       }
+    //       return response.blob();
+    //     })
+    //     .catch(error => {
+    //       console.error(
+    //         "There has been a problem:",
+    //         error
+    //       );
+    //     });
+    // }
 
     handleInputChange() {
       // this.setState({
