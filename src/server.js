@@ -18,16 +18,18 @@ app.get('/backend/events', (request, response) => {
 app.post('/backend/event', (req, res) => {
   
   //validation
-  if(!req.body.id && req.body.id.length !== 36){
-    res.status(400).send(`Missing ID`);
-  } if(!req.body.dispositivo){
+  if(!req.body.dispositivo){
     res.status(400).send(`Missing dispositivo`);
-  } if(!req.body.IMEI && req.body.IMEI !== 10){
+    res.end();
+  } else if (!req.body.IMEI || req.body.IMEI.length !== 10){
     res.status(400).send(`Missing IMEI`);
-  } if(!req.body.evento){
+    res.end();
+  } else if (!req.body.evento){
     res.status(400).send(`Missing evento`);
-  } if(!req.body.timestamp){
+    res.end();
+  } else if (!req.body.timestamp){
     res.status(400).send(`Missing timestamp`);
+    res.end();
   } else {
     fs.readFile('data.json', 'utf8' ,function (err, data) {
       if (err) throw err;
@@ -45,16 +47,21 @@ app.post('/backend/event', (req, res) => {
 
 app.put('/backend/event/:id', (req, res) => {
   const eventId = req.params.id || 'event';
-  if(!req.body.id && req.body.id.length !== 36){
+  if(!req.body.id || req.body.id.length !== 36){
     res.status(400).send(`Missing ID`);
-  } if(!req.body.dispositivo){
+    res.end();
+  } else if (!req.body.dispositivo){
     res.status(400).send(`Missing dispositivo`);
-  } if(!req.body.IMEI && req.body.IMEI !== 10){
+    res.end();
+  } else if (!req.body.IMEI || req.body.IMEI.length !== 10){
     res.status(400).send(`Missing IMEI`);
-  } if(!req.body.evento){
+    res.end();
+  } else if (!req.body.evento){
     res.status(400).send(`Missing evento`);
-  } if(!req.body.timestamp){
+    res.end();
+  } else if (!req.body.timestamp){
     res.status(400).send(`Missing timestamp`);
+    res.end();
   } else {
     fs.readFile('data.json', 'utf8' ,function (err, data) {
       const events = JSON.parse(data);
