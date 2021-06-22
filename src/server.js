@@ -16,43 +16,56 @@ app.get('/backend/events', (request, response) => {
 });
 
 app.post('/backend/event', (req, res) => {
-  fs.readFile('data.json', 'utf8' ,function (err, data) {
-    if (err) throw err;
-    //Da aggiungere il caso in cui il file è vuoto
-    let json = JSON.parse(data);
-    const event = req.body;
-    event.id = uuid.v4();
-    json.push(event);
-
-    //Date conversion da fixare
-    // let index = (json.length-1);
-    // let myDate = new Date(json[index].timestamp);
-    // json[index]["timestamp"] = myDate;
-
-    // console.log(`var MyDate: ` + myDate);
-    // console.log(`timestamp json: ` + json[index].timestamp);
-    // console.log(`JSON: ` + json[index].timestamp);
-    ////////////////
-    fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
-    res.end();
-  });
+  
+  //validation
+  if(!req.body.id && req.body.id.length !== 36){
+    res.status(400).send(`Missing ID`);
+  } if(!req.body.dispositivo){
+    res.status(400).send(`Missing dispositivo`);
+  } if(!req.body.IMEI && req.body.IMEI !== 10){
+    res.status(400).send(`Missing IMEI`);
+  } if(!req.body.evento){
+    res.status(400).send(`Missing evento`);
+  } if(!req.body.timestamp){
+    res.status(400).send(`Missing timestamp`);
+  } else {
+    fs.readFile('data.json', 'utf8' ,function (err, data) {
+      if (err) throw err;
+      let json = JSON.parse(data);
+      const event = req.body;
+      if(event.id === null){
+        event.id = uuid.v4();
+      }
+      json.push(event);
+      fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(json));
+      res.end();
+    });
+  }
 });
 
 app.put('/backend/event/:id', (req, res) => {
-  //controlli
   const eventId = req.params.id || 'event';
-  if(req.body.id && req.body.id.length === 36){
+  if(!req.body.id && req.body.id.length !== 36){
+    res.status(400).send(`Missing ID`);
+  } if(!req.body.dispositivo){
+    res.status(400).send(`Missing dispositivo`);
+  } if(!req.body.IMEI && req.body.IMEI !== 10){
+    res.status(400).send(`Missing IMEI`);
+  } if(!req.body.evento){
+    res.status(400).send(`Missing evento`);
+  } if(!req.body.timestamp){
+    res.status(400).send(`Missing timestamp`);
+  } else {
     fs.readFile('data.json', 'utf8' ,function (err, data) {
       const events = JSON.parse(data);
       const filteredEvents = events.filter((eventEl) => {
         return eventEl.id !== eventId;
       });
+      console.log('filteredEvents', filteredEvents);
       filteredEvents.push(req.body);
       fs.writeFileSync(path.resolve(__dirname, 'data.json'), JSON.stringify(filteredEvents));
       res.end();
     });
-  } else {
-    res.status(400).send(`Missing ID`);
   }
 })
 
