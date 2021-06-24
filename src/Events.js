@@ -42,7 +42,7 @@ export class Events extends React.Component {
         console.log(err);
       });
   }
-  //Ajax Post
+  //Ajax Put
   async putEvents(event) {
     return fetch(`http://localhost:5000/backend/event/${event.id}`, {
       headers: { "Content-Type": "application/json" },
